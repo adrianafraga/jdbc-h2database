@@ -6,23 +6,15 @@ import java.util.Scanner;
 import com.qintess.crud.ClienteCrud;
 import com.qintess.model.Cliente;
 
-public class ConnectionTest {
+public class ExecutaApp {
 	
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
 		
-		while(1 > 0) {
-			menu();
-			String op = sc.nextLine();
-			if(op.equals("0")) {
-				break;
-			}else {
-				operacao(op);
-			}
-		}
+		menu();
 	}
 	
 	public static void menu() {
+		Scanner sc = new Scanner(System.in);
 		System.out.println("Digite a opção desejada: ");
 		System.out.println("1) Inserir novo nome");
 		System.out.println("2) Deletar nome");
@@ -30,15 +22,20 @@ public class ConnectionTest {
 		System.out.println("4) Buscar por nome");
 		System.out.println("9) Criar tabela Cliente (Apenas primeira Vez)");
 		System.out.println("0) Sair");
+		
+		String op = sc.nextLine();
+		operacao(op);
 	}
 	
 	public static void operacao(String op) {
 		switch (op) {
 		case "1":
 			inserir();
+			menu();
 			break;
 		case "2":
 			deletar();
+			menu();
 			break;
 		case "3":
 			System.out.println("ID    | NOME");
@@ -46,16 +43,22 @@ public class ConnectionTest {
 				System.out.println("ID: "+ cliente.getId()+ " | " + cliente.getNome());
 			}
 			System.out.println("");
+			menu();
 			break;
 		case "4":
 			buscarPorNome();
+			menu();
 			break;
 		case "9":
 			ClienteCrud.createClienteTable();
 			System.out.println("\n \n \n");
+			menu();
+			break;
+		case "0":
 			break;
 		default:
 			System.out.println("Essa operação não existe");
+			menu();
 			break;
 		}
 	}
