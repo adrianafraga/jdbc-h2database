@@ -7,14 +7,22 @@ import com.qintess.crud.ClienteCrud;
 import com.qintess.model.Cliente;
 
 public class ExecutaApp {
-	
+	static Scanner sc = new Scanner(System.in);
 	public static void main(String[] args) {
 		
-		menu();
+		while(1>0) {
+			menu();
+			String op = sc.nextLine();
+			if(op.equals("0")) {
+				sc.close();
+				break;
+			}
+			operacao(op);
+		}
 	}
 	
 	public static void menu() {
-		Scanner sc = new Scanner(System.in);
+		
 		System.out.println("Digite a opção desejada: ");
 		System.out.println("1) Inserir novo nome");
 		System.out.println("2) Deletar nome");
@@ -23,9 +31,7 @@ public class ExecutaApp {
 		System.out.println("9) Criar tabela Cliente (Apenas primeira Vez)");
 		System.out.println("0) Sair");
 		
-		String op = sc.nextLine();
-		sc.close();
-		operacao(op);
+		
 		
 	}
 	
@@ -33,11 +39,9 @@ public class ExecutaApp {
 		switch (op) {
 		case "1":
 			inserir();
-			menu();
 			break;
 		case "2":
 			deletar();
-			menu();
 			break;
 		case "3":
 			System.out.println("ID    | NOME");
@@ -45,22 +49,16 @@ public class ExecutaApp {
 				System.out.println("ID: "+ cliente.getId()+ " | " + cliente.getNome());
 			}
 			System.out.println("");
-			menu();
 			break;
 		case "4":
 			buscarPorNome();
-			menu();
 			break;
 		case "9":
 			ClienteCrud.createClienteTable();
 			System.out.println("\n \n \n");
-			menu();
-			break;
-		case "0":
 			break;
 		default:
 			System.out.println("Essa operação não existe");
-			menu();
 			break;
 		}
 	}
@@ -69,7 +67,6 @@ public class ExecutaApp {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Digite o nome para inserir: ");
 		String nome = sc.nextLine();
-		sc.close();
 		ClienteCrud.insert(nome);
 		System.out.println("Nome inserido com sucesso!");
 		System.out.println("");
@@ -88,7 +85,6 @@ public class ExecutaApp {
 		while(!verificar) {
 			try {
 				int id = Integer.parseInt(sc.nextLine());
-				sc.close();
 				for(Cliente cliente : lista) {
 					if(cliente.getId() == id) {
 						ClienteCrud.delete(cliente.getId());
@@ -111,7 +107,6 @@ public class ExecutaApp {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Digite o nome que deseja buscar");
 		String nome = sc.nextLine();
-		sc.close();
 		for(Cliente cliente : ClienteCrud.selectByName(nome)) {
 			System.out.println("ID: " + cliente.getId() + " | " + cliente.getNome());
 		}
