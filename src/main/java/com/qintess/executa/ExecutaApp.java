@@ -24,7 +24,9 @@ public class ExecutaApp {
 		System.out.println("0) Sair");
 		
 		String op = sc.nextLine();
+		sc.close();
 		operacao(op);
+		
 	}
 	
 	public static void operacao(String op) {
@@ -67,9 +69,11 @@ public class ExecutaApp {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Digite o nome para inserir: ");
 		String nome = sc.nextLine();
+		sc.close();
 		ClienteCrud.insert(nome);
 		System.out.println("Nome inserido com sucesso!");
 		System.out.println("");
+		
 	}
 	
 	public static void deletar() {
@@ -84,6 +88,7 @@ public class ExecutaApp {
 		while(!verificar) {
 			try {
 				int id = Integer.parseInt(sc.nextLine());
+				sc.close();
 				for(Cliente cliente : lista) {
 					if(cliente.getId() == id) {
 						ClienteCrud.delete(cliente.getId());
@@ -100,13 +105,13 @@ public class ExecutaApp {
 				System.out.println("Digite um id válido");
 			}
 		}
-		
 	}
 
 	public static void buscarPorNome() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Digite o nome que deseja buscar");
 		String nome = sc.nextLine();
+		sc.close();
 		for(Cliente cliente : ClienteCrud.selectByName(nome)) {
 			System.out.println("ID: " + cliente.getId() + " | " + cliente.getNome());
 		}
